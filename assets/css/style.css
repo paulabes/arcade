@@ -2,8 +2,15 @@
 /* Isaac Rogerio Paul */
 /* 12/12/2024 */
 
-body {
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     background-color: #111;
 }
 
@@ -17,11 +24,10 @@ h2 {
     padding: 0;
 }
 
-.navbar-brand {
-    font-size: 1.5rem;
-    font-family: 'Press Start 2P';
+#navbar {
+    font-size: 0.6rem;
     color: #f0f0f0;
-    margin: 0.2rem 0;
+    margin: 0;
     padding: 0;
 }
 
@@ -99,19 +105,16 @@ a:link {
     letter-spacing: 0.1rem;
 }
 
-
-
 /* sections */
 
 section {
     padding: 30px 0;
 }
 
-.border2 {
+.border {
     border: 2px solid #f8f9fa;
     border-radius: 0px;
 }
-
 
 #footer {
     text-align: center;
@@ -136,7 +139,6 @@ input {
 
 @media (min-width: 768px) {
 
-
     .center {
         text-align: center;
     }
@@ -145,7 +147,5 @@ input {
         padding: 0;
     }
 
-    #game-placeholder {
-        
-    }
+    #game-placeholder {}
 }
