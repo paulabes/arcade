@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* @import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300;400;500&display=swap'); */
+
+        body {
+            text-align: center;
+            background: url('./assets/images/arcade-room.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin-top: 78.2px;
+        }      
+
+        .geeks {
+            font-size: 40px;
+            font-weight: bold;
+            color: green;
+        }
+
+        #board {
+            background-color: #333;
+            display: block;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .start-button {
+            margin-top: 20px;
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: red;
+            font-size: 25px;
+            font-family: 'Press Start 2P', cursive;
+            display: none;
+        } 
+
+        .game-over-press {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: red;
+            font-size: 10px;
+            font-family: 'Press Start 2P', cursive;
+            display: none;
+        }
+
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            scroll-behavior: smooth;
+            transition: 0.5s ease-in;
+        }
+
+        :root {
+            --primary-color: #fcf704;
+            --secondary-color: #ccc;
+            --bg-color: blue;
+            --smoke: whitesmoke;
+        }
+
+        .hero-header-title-block {
+            flex: 3;
+            text-align: center;
+            border: 1px solid darkslategrey;
+        }
+
+        .hero-header-title-block .headline {
+            margin-top: 0px;
+            font-size: 3.9rem;
+            letter-spacing: 1px;
+            color: var(--primary-color);
+            animation-name: text-glow;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            padding: 1px;
+        }
+
+        @keyframes text-glow {
+            0% {
+                text-shadow: 1px 1px 7px #FF0000;
+            }
+
+            15% {
+                text-shadow: 2px 2px 8px #FF0000;
+            }
+
+            25% {
+                text-shadow: 4px 4px 9px #FF0000;
+            }
+
+            50% {
+                text-shadow: 6px 6px 9px #FF0000;
+            }
+
+            75% {
+                text-shadow: 4px 4px 8px #FF0000;
+            }
+
+            100% {
+                text-shadow: 1px 1px 7px #FF0000;
+            }
+        }
+
+        .hero-header-title-block .headline span {
+            color: var(--smoke);
+            font-size: 1.4rem;
+        }
+
+        .hero-header-title-block .subhead {
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--smoke);
+            animation-name: text-glow;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+        }
+
+        .hero-header-title-block article {
+            text-align: justify;
+            column-width: 14em;
+            column-gap: 1.33em;
+            padding: 0 1em;
+            color: var(--secondary-color);
+        }
+
+        .hero-header-title-block {
+            background-color: green;
+            border: 6px solid darkslategrey;
+        }
+
+        
+        
+
+        @media (max-width: 768px) {
+            .navbar-text {
+                display: none;
+            }
+            .navbar-logo {
+                display: inline;
+            }           
+        }
+
+
+
+        .navbar-logo {
+            display: none;
+        }
+        .nav-item * {
+            font-family: "Press Start 2P", system-ui;
+            font-weight: 200;
+            font-style: normal;
+        }
+        body,
+        footer,
+        header,
+        nav{
+            background-color: #212529;
+            color: #fff;
+        }
+        h2{
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+
+<body data-bs-theme="dark">
+
+    <!-- nav bar -->
+    <div id="navbar-placeholder"></div>
+
+    <section id="game-placeholder">
+        <div class="container my-3 col-12 col-md-6">
+            <div class="hero-header-title-block">
+                <h1 class="headline">The Arcade <span></span></h1>
+            </div>
+            <div class="container" style="background-color: black;">
+                <div class="col-md-12 text-center nes-container with-title is-centered">
+                    <canvas id="board"></canvas>
+                    <button id="startButton" class="btn btn-primary start-button">Start Game</button>
+                    <div id="gameOverText" class="game-over">Game Over</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- footer -->
+    <footer id="footer" class="mt-auto py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <span>&copy; 2024 The Arcade</span>&nbsp; &nbsp;|&nbsp; &nbsp;
+                    <a href="privacy-policy.html" class="text-white">Privacy Policy</a>&nbsp; &nbsp;|&nbsp; &nbsp;<a
+                        href="terms-conditions.html" class="text-white">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+         function loadNavbar() {
+            fetch('includes/navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-placeholder').innerHTML = data;
+                    setActiveNavLink();
+                });
+        }        
+
+        // Function to set the active link in the navigation menu
+        function setActiveNavLink() {
+            const path = window.location.pathname;
+            const page = path.split("/").pop();
+
+            const navLinks = {
+                'index.html': 'nav-home',
+                'about.html': 'nav-about',
+                'games.html': 'nav-games',
+                'contact.html': 'nav-contact'
+            };
+
+            const activeLinkId = navLinks[page];
+            if (activeLinkId) {
+                const activeLink = document.getElementById(activeLinkId);
+                activeLink.classList.add('active');
+                activeLink.setAttribute('aria-current', 'page');
+            }
+        }
+        loadNavbar();
+
+
+        let blockSize = 25;
+        let total_row = 17;
+        let total_col = 17;
+        let board;
+        let context;
+
+        let snakeX = blockSize * 5;
+        let snakeY = blockSize * 5;
+
+        let speedX = 0;
+        let speedY = 0;
+
+        let snakeBody = [];
+
+        let foodX;
+        let foodY;
+
+        let gameOver = false;
+        let gameInterval;
+
+        window.onload = function () {
+            board = document.getElementById("board");
+            board.height = total_row * blockSize;
+            board.width = total_col * blockSize;
+            context = board.getContext("2d");
+            placeFood();
+            document.addEventListener("keyup", changeDirection); // for movements
+            document.getElementById("startButton").addEventListener("click", startGame);
+
+        }
+
+        function update() {
+            if (gameOver) {
+                clearInterval(gameInterval);
+                showGameOverText();
+                return;
+            }
+            context.fillStyle = "green";
+            context.fillRect(0, 0, board.width, board.height);
+
+            context.fillStyle = "yellow";
+            context.fillRect(foodX, foodY, blockSize, blockSize);
+
+            if (snakeX == foodX && snakeY == foodY) {
+                snakeBody.push([foodX, foodY]);
+                placeFood();
+            }
+
+            for (let i = snakeBody.length - 1; i > 0; i--) {
+                snakeBody[i] = snakeBody[i - 1];
+            }
+            if (snakeBody.length) {
+                snakeBody[0] = [snakeX, snakeY];
+            }
+
+            context.fillStyle = "white";
+            snakeX += speedX * blockSize;
+            snakeY += speedY * blockSize;
+            context.fillRect(snakeX, snakeY, blockSize, blockSize);
+            for (let i = 0; i < snakeBody.length; i++) {
+                context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
+            }
+
+            if (snakeX < 0 || snakeX >= total_col * blockSize || snakeY < 0 || snakeY >= total_row * blockSize) {
+                gameOver = true;
+                showGameOverText();
+            }
+
+            for (let i = 0; i < snakeBody.length; i++) {
+                if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
+                    gameOver = true;
+                    showGameOverText();
+                    document.getElementB("startButton").style.display = "block";
+                }
+            }
+        }
+
+        function changeDirection(e) {
+            e.preventDefault();
+            if (e.code == "ArrowUp" && speedY != 1) {
+                speedX = 0;
+                speedY = -1;
+            } else if (e.code == "ArrowDown" && speedY != -1) {
+                speedX = 0;
+                speedY = 1;
+            } else if (e.code == "ArrowLeft" && speedX != 1) {
+                speedX = -1;
+                speedY = 0;
+            } else if (e.code == "ArrowRight" && speedX != -1) {
+                speedX = 1;
+                speedY = 0;
+            }
+        }
+        function placeFood() {
+            foodX = Math.floor(Math.random() * total_col) * blockSize;
+
+            foodY = Math.floor(Math.random() * total_row) * blockSize;
+        }
+
+        function showGameOverText() {
+            const gameOverText = document.getElementById('gameOverText');
+            gameOverText.style.display = 'block';
+        }
+
+        function startGame() {
+            snakeX = blockSize * 5;
+            snakeY = blockSize * 5;
+            speedX = 0;
+            speedY = 0;
+            snakeBody = [];
+            gameOver = false;
+            placeFood();
+            document.getElementById("gameOverText").style.display = "none";
+            clearInterval(gameInterval);
+            gameInterval = setInterval(update, 1000 / 10);
+        }
+    </script>
+</body>
+
+</html>
