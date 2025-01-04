@@ -29,28 +29,6 @@ h2 {
     padding: 0;
 }
 
-#navbar {
-    font-size: 0.6rem;
-    color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-item {
-    font-family: "Press Start 2P";
-}
-
-.dropdown-item {
-    font-family: "Press Start 2P";
-    line-height: 1.8;
-}
-
-.dropdown-menu {
-    border-radius: 0;
-    border: none;
-    padding: 0;
-}
-
 p {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.1rem;
@@ -87,16 +65,26 @@ a:link {
 
 /* navbar */
 
+#navbar {
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+
+}
+
+.dropdown-menu {
+    border-radius: 0;
+    border: none;
+    padding: 0;
+}
+
 .navbar-toggler {
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
-}
-
-.nav-link {
-    text-transform: uppercase;
-    font-size: 1rem;
-    letter-spacing: 0.1rem;
 }
 
 /* buttons */
@@ -105,7 +93,6 @@ a:link {
     margin: 15px 0;
     border-radius: 0px;
     padding: 20px 30px;
-    text-transform: uppercase;
     font-size: 1rem;
     letter-spacing: 0.1rem;
 }
@@ -120,16 +107,18 @@ section {
     border: 2px solid #f8f9fa;
     border-radius: 0px;
 }
-
-#footer {
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 0.6rem;
-    letter-spacing: 0.1rem;
-}
-
+ 
 .accordion-item {
     border-radius: 0px;
+}
+
+/* footer */
+
+#footer p{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.1rem;
 }
 
 /*form */
@@ -151,6 +140,4 @@ input {
     body {
         padding: 0;
     }
-
-    #game-placeholder {}
 }
