@@ -12,6 +12,11 @@
 
 body {
     background-color: #111;
+    padding-top: 100px;
+}
+
+main{
+    padding-top: 100px;
 }
 
 /* font styles */
