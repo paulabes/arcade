@@ -12,11 +12,10 @@
 
 body {
     background-color: #111;
-    padding-top: 100px;
 }
 
 main{
-    padding-top: 100px;
+    padding-top: 70px;
 }
 
 /* font styles */
@@ -119,6 +118,12 @@ section {
     text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 0.1rem;
+}
+
+/* cta */
+
+#cta {
+    background-color: #222222;
 }
 
 /*form */
