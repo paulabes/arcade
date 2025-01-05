@@ -17,12 +17,6 @@ fetch('includes/footer.html')
     });
 
     // Highlight current page in navbar
-    document.addEventListener('DOMContentLoaded', function() {
-        var currentPath = window.location.pathname.split('/').pop();
-        var navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(function(link) {
-            if (link.getAttribute('href') === currentPath) {
-                link.style.color = '#ffffff';
-            }
-        });
-    });
+
+
+
